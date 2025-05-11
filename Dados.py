@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 class Dados:
     def __init__(self, nome_arq):
@@ -102,3 +103,8 @@ class Dados:
         sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
         plt.title('Correlation Matrix')
         plt.show()
+
+    def info(self):
+        # Basic info
+        print("INFO:")
+        self.df.info()

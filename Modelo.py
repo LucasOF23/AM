@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
 
 class Modelo:
-    def __init__(self, nome_arq, nome_modelo, prediction_value = 'Target_Severity_Score'):
+    def __init__(self, nome_arq, nome_modelo, prediction_value = 'Target_Severity_Score', take_out_values = False):
         # Carrega os dados do arquivo CSV
         self.df = pd.read_csv(nome_arq)
 
@@ -22,7 +22,10 @@ class Modelo:
         self.df = self.df.drop(['Gender', 'Country_Region', 'Year'], axis=1)
 
         # Separa os dados em características (X) e alvo (Y)
-        X = self.df.drop(prediction_value, axis=1)
+        if(take_out_values):
+            X = self.df.drop(["Treatment_Cost_USD","Survival_Years","Target_Severity_Score"], axis=1)
+        else:
+            X = self.df.drop(prediction_value, axis=1)
         Y = self.df[prediction_value]
 
         # Configura a validação cruzada (5 divisões)
